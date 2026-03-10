@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+sudo pip3 install tm1637
+from time import sleep
+import tm1637
+
+try:
+    import thread
+except ImportError:
+    import _thread as thread
+
+Display = tm1637.TM1637(clk=21, dio=20, brightness=1.0)
+
+try:
+    print("Started clock module in the background")
+
+    Display.SetBrightness(1)
+    Display.Clear()
+
+    Display.ShowDoublepoint(True)
+
+    while True:
+        Display.Show([0,0,0,0])
+        sleep(1)
+
+except KeyboardInterrupt:
+    print("Properly closing")
+    Display.cleanup()
