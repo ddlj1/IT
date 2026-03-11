@@ -1,27 +1,13 @@
-#!/usr/bin/env python
-sudo pip3 install tm1637
-from time import sleep
-import tm1637
+rainfall <- c(799,1174.8,865.1,1334.6,635.4,918.5,685.5,998.6,784.2,985,882.8,1071.0)
 
-try:
-    import thread
-except ImportError:
-    import _thread as thread
+rainfall.timeseries <- ts(rainfall,start=c(2012,1),frequency=12)
 
-Display = tm1637.TM1637(clk=21, dio=20, brightness=1.0)
+print(rainfall.timeseries)
 
-try:
-    print("Started clock module in the background")
+png(file="rainfall.png")
 
-    Display.SetBrightness(1)
-    Display.Clear()
+plot(rainfall.timeseries)
 
-    Display.ShowDoublepoint(True)
+dev.off()
 
-    while True:
-        Display.Show([0,0,0,0])
-        sleep(1)
-
-except KeyboardInterrupt:
-    print("Properly closing")
-    Display.cleanup()
+plot(rainfall.timeseries)
