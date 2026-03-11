@@ -1,42 +1,13 @@
-Step 1: sudo raspi-config (To Enable P4 SPI)
+rainfall <- c(799,1174.8,865.1,1334.6,635.4,918.5,685.5,998.6,784.2,985,882.8,1071.0)
 
-Step 2: sudo reboot (to restart your Raspberry Pi)
+rainfall.timeseries <- ts(rainfall,start=c(2012,1),frequency=12)
 
-Step 3: lsmod | grep spi (to see if spi_bcm2835 is listed)
+print(rainfall.timeseries)
 
-Step 4: sudo apt-get update
-        sudo apt-get upgrade
+png(file="rainfall.png")
 
-Step 5: sudo apt-get install python3-dev python3-pip (setting up the RFID reader)
+plot(rainfall.timeseries)
 
-Step 6: sudo pip3 install spidev (spidev library helps handle interactions with the SPI)
+dev.off()
 
-Step 6: sudo pip3 install mfrc522 (MFRC522.py which is an implementation of the RFID RC522 interface)
-
-
-import RPi.GPIO as GPIO
-from mfrc522 import SimpleMFRC522
-
-reader = SimpleMFRC522()
-
-try:
-    text = input('New Data:')
-    print("Now place your tag to write")
-    reader.write(text)
-    print("Written")
-
-finally:
-    GPIO.cleanup()
-
-import RPi.GPIO as GPIO
-from mfrc522 import SimpleMFRC522
-
-reader = SimpleMFRC522()
-
-try:
-    id, text = reader.read()
-    print(id)
-    print(text)
-
-finally:
-    GPIO.cleanup()
+plot(rainfall.timeseries)
