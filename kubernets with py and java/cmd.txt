@@ -1,0 +1,10 @@
+docker build -t manthan62/circle-area:1.0 .
+docker login
+docker push manthan62/circle-area:1.0
+
+kubectl apply -f deployment.yaml
+kubectl get deployments
+kubectl get pods
+kubectl logs <pod-name>
+
+same for python and java

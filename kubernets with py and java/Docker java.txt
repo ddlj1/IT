@@ -1,0 +1,4 @@
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+RUN javac AreaOfCircle.java
+CMD ["java","AreaOfCircle","10"]

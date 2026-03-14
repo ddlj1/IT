@@ -1,0 +1,2 @@
+docker build -t python-user-archee .
+docker run python-user-archee

@@ -1,0 +1,5 @@
+docker swarm init
+docker node ls
+docker service create --name web --replicas 1 --publish published=8080,target=80 nginx:alpine
+docker service ls
+docker service ps web

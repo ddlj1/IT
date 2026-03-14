@@ -1,0 +1,5 @@
+FROM eclipse-temurin:17
+WORKDIR /app
+COPY eg1.java .
+RUN javac eg1.java
+CMD ["java","eg1"]

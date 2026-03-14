@@ -1,0 +1,30 @@
+git --version
+git init
+git status
+git add file1.java
+git add .
+git config --global user.name "Archelo"
+git config --global user.email "archelo@example.com"
+git config --global core.editor "Notepad"
+
+git commit -m "updated"
+
+git restore file1.java
+git restore --source <commit-id> file1.java
+
+git reset --soft <commit-id>
+git config --unset user.name "Archelo"
+git config --unset user.email "archelo@example.com"
+
+git branch feature-branch
+git checkout feature-branch
+git merge feature-branch
+
+git remote add origin https://github.com/archelo/archelo.git
+git checkout main
+git branch
+git checkout master
+
+git merge feature-branch
+git push -u origin master
+git pull origin master

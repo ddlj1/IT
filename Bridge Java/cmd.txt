@@ -1,0 +1,4 @@
+docker network create --driver bridge my_bridge_archee
+docker network ls
+docker network inspect my_bridge_archee
+docker run -it --rm --network my_bridge_archee java-user-archee
