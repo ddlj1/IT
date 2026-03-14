@@ -1,0 +1,25 @@
+6)  Angular SPA
+
+WebForm1.aspx
+
+<%@ Page Language=“C#” AutoEventWireup=“true”
+CodeBehind=“WebForm1.aspx.cs” Inherits=“Practical6A.WebForm1” %>
+<!DOCTYPE html>
+Demo
+Archee Patel TYBSCIT040
+Enter your name here:
+
+Output: {{ greeting }}
+
+app.js
+
+var app = angular.module(“myangular”, []);
+
+controller.js
+
+app.controller(“MyControl”, function ($scope) {$scope.name = “XYZ”;
+
+$scope.updateGreeting = function () {$scope.greeting = “Hello,” +
+$scope.name + “!”; };
+
+$scope.updateGreeting(); });

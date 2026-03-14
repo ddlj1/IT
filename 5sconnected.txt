@@ -1,0 +1,159 @@
+
+
+WebForm1.aspx.cs
+
+using System; using System.Collections.Generic; using
+System.Data.SqlClient; using System.Linq; using System.Web; using
+System.Web.UI; using System.Web.UI.WebControls;
+
+namespace sle1 { public partial class WebForm1 : System.Web.UI.Page {
+string cs = “Data Source=(localdb)\MSSQLLocalDB;Initial
+Catalog=disonnnected;Integrated Security=True”;
+
+        protected void BtnSelect_Click(object sender, EventArgs e)
+        {
+            Label1.Text = "";
+
+            SqlConnection conn = new SqlConnection(cs);
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("select RollNo, Name from Student", conn);
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (!dr.HasRows)
+            {
+                Label1.Text = "No records found.";
+                GridView1.DataSource = null;
+                GridView1.DataBind();
+            }
+            else
+            {
+                GridView1.DataSource = dr;
+                GridView1.DataBind();
+            }
+
+            conn.Close();
+        }
+
+
+        protected void BtnInsert_Click(object sender, EventArgs e)
+        {
+            Label1.Text = "";
+
+            if (TextBox1.Text == "" || TextBox2.Text == "")
+            {
+                Label1.Text = "RollNo and Name are required.";
+                return;
+            }
+
+            SqlConnection conn = new SqlConnection(cs);
+            conn.Open();
+
+            SqlCommand checkCmd = new SqlCommand(
+                "select count(*) from Student where RollNo=@r", conn);
+
+            checkCmd.Parameters.AddWithValue("@r", TextBox1.Text);
+
+            int count = (int)checkCmd.ExecuteScalar();
+
+            if (count > 0)
+            {
+                Label1.Text = "Record already exists.";
+                conn.Close();
+                return;
+            }
+
+            SqlCommand cmd = new SqlCommand(
+                "insert into Student values(@r,@n)", conn);
+
+            cmd.Parameters.AddWithValue("@r", TextBox1.Text);
+            cmd.Parameters.AddWithValue("@n", TextBox2.Text);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+
+            Label1.Text = "Record Inserted Successfully.";
+        }
+
+
+        protected void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            Label1.Text = "";
+
+            if (TextBox1.Text == "" || TextBox2.Text == "")
+            {
+                Label1.Text = "RollNo and Name are required.";
+                return;
+            }
+
+            SqlConnection conn = new SqlConnection(cs);
+            conn.Open();
+
+            SqlCommand checkCmd = new SqlCommand(
+                "select count(*) from Student where RollNo=@r", conn);
+
+            checkCmd.Parameters.AddWithValue("@r", TextBox1.Text);
+
+            int count = (int)checkCmd.ExecuteScalar();
+
+            if (count == 0)
+            {
+                Label1.Text = "Record not found.";
+                conn.Close();
+                return;
+            }
+
+            SqlCommand cmd = new SqlCommand(
+                "update Student set Name=@n where RollNo=@r", conn);
+
+            cmd.Parameters.AddWithValue("@r", TextBox1.Text);
+            cmd.Parameters.AddWithValue("@n", TextBox2.Text);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+
+            Label1.Text = "Record Updated Successfully.";
+        }
+
+
+        protected void BtnDelete_Click(object sender, EventArgs e)
+        {
+            Label1.Text = "";
+
+            if (TextBox1.Text == "")
+            {
+                Label1.Text = "RollNo is required.";
+                return;
+            }
+
+            SqlConnection conn = new SqlConnection(cs);
+            conn.Open();
+
+            SqlCommand checkCmd = new SqlCommand(
+                "select count(*) from Student where RollNo=@r", conn);
+
+            checkCmd.Parameters.AddWithValue("@r", TextBox1.Text);
+
+            int count = (int)checkCmd.ExecuteScalar();
+
+            if (count == 0)
+            {
+                Label1.Text = "Record not found.";
+                conn.Close();
+                return;
+            }
+
+            SqlCommand cmd = new SqlCommand(
+                "delete from Student where RollNo=@r", conn);
+
+            cmd.Parameters.AddWithValue("@r", TextBox1.Text);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+
+            Label1.Text = "Record Deleted Successfully.";
+        }
+
+    }
+
+}
