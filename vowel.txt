@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace WebApplication15
+{
+public partial class WebForm1 : System.Web.UI.Page
+{
+protected void Page_Load(object sender, EventArgs e)
+{
+}
+protected void btnTest_Click(object sender, EventArgs e)
+{
+if (string.IsNullOrWhiteSpace(txt1.Text))
+{
+lblResult.Text = "Please enter a character.";
+return;
+}
+char ch = char.ToLower(txt1.Text[0]);
+if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+lblResult.Text = "It is a vowel.";
+else
+lblResult.Text = "It is not a vowel.";
+}
+}
+}
