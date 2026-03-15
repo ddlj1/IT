@@ -5,6 +5,6 @@ docker push manthan62/circle-area:1.0
 kubectl apply -f deployment.yaml
 kubectl get deployments
 kubectl get pods -w
-kubectl get logs <pod-name>
+kubectl logs <pod-name>
 
 same for python and java
