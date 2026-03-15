@@ -1,5 +1,11 @@
+docker compose up --build -d 
 docker swarm init
 docker node ls
 docker service create --name web --replicas 1 --publish published=8080,target=80 nginx:alpine
 docker service ls
 docker service ps web
+docker service rn web
+docker service create --name web3 --replicas 2 --publish published=8083,target=80 --mount type=bind,source=%cd%\index.html,target=/usr/share/nginx/html/index.html nginx:alpine
+docker compose up --build -d
+docker compose ps -a
+docker logs java_app

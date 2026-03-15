@@ -1,3 +1,4 @@
 docker build -t express-archee .
 docker run -p 3000:3000 express-archee
 npm init -y
+npm install express
